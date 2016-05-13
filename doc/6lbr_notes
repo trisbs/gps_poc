@@ -69,3 +69,10 @@ modprobe ftdi_sio
 chmod 777 /sys/bus/usb-serial/drivers/ftdi_sio/new_id
 echo 0403 a6d1 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
 ===========================================
+
+
+fstab
+===========================================
+# add a tmpfs
+tmpfs           /memtmp         tmpfs   nodev,nosuid,size=10M 0   0
+===========================================
