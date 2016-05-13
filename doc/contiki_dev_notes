@@ -1,0 +1,13 @@
+udev rule
+/etc/udev/rules.d/99-com.rules add 
+cc13xx EB shoud plug in second usb socket of j11(middle)
+======================================
+# TI
+KERNEL=="ttyUSB*", KERNELS=="1-1.3:1.1", SYMLINK+="contiki", RUN+="/bin/stty -F /dev/%k 115200 raw -echo"
+
+#GPS
+KERNEL=="ttyUSB*", ATTRS{idProduct}=="2303", SYMLINK+="gps"
+======================================
+
+
+run sendGPRMC when start up

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while true;do
+  head -n 10 /dev/gps | grep -m1 '$GPRMC' >> /dev/contiki
+#  head -n 10 /dev/gps | grep -m1 '$GPRMC'
+  sleep 2
+done

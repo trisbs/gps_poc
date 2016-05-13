@@ -1,0 +1,15 @@
+#trLen=`expr ${#1} - 3`
+#echo $strLen
+#essage=`expr substr "$1" 3 $strLen`
+#echo $message
+#hannelNum="WALTZ_`fw_printenv SN | cut -d '=' -f2`"
+contant="{ \"data\": {\"GPS\": \"$2\"}}"
+echo $contant
+
+curl -X POST \
+-H "X-Parse-Application-Id: ACCTON_POC" \
+-H "Content-Type: application/json" \
+-d "$contant" \
+--connect-timeout 1 \
+http://125.227.145.20:1337/parse/classes/$1
+#http://10.9.3.137:1337/parse/classes/$1

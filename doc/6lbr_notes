@@ -1,0 +1,71 @@
+For router
+
+/etc/6lbr/6lbr.conf
+===========================================
+MODE=ROUTER
+#MODE=SMART-BRIDGE
+#MODE=RPL-RELAY
+#MODE=FULL-TRANSPARENT-BRIDGE
+#MODE=NDP-ROUTER
+#MODE=6LR
+#MODE=RPL-ROOT
+
+RAW_ETH=0
+BRIDGE=1
+CREATE_BRIDGE=2
+DEV_BRIDGE=br0
+DEV_TAP=tap0
+DEV_ETH=eth0
+#DEV_ETH=wlan0
+RAW_ETH_FCS=0
+
+DEV_RADIO=/dev/ttyUSB1
+BAUDRATE=115200
+
+#LOG_LEVEL=3 #INFO and above only
+LOG_LEVEL=4
+===========================================
+
+
+/etc/6lbr/ifup.d/80itf_autoconf  add
+===========================================
+# static IP
+ifconfig $DEV_BRIDGE inet6 add bbbb::102/64
+
+# route
+route -A inet6 add aaaa::/64 gw bbbb::100
+===========================================
+
+route cmd
+===========================================
+sudo route -A inet6 add aaaa::/64 gw bbbb::100
+===========================================
+
+
+/etc/dhcpcd.conf add
+===========================================
+interface br0
+ipv6ra_noautoconf
+#slaac hardware
+===========================================
+
+
+6lbr startup
+===========================================
+sudo systemctl enable 6lbr
+===========================================
+
+
+6lbr disable startup
+===========================================
+sudo systemctl disable 6lbr
+===========================================
+
+
+rc.local
+===========================================
+# ftdi driver
+modprobe ftdi_sio
+chmod 777 /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+echo 0403 a6d1 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+===========================================

@@ -1,0 +1,14 @@
+#trLen=`expr ${#1} - 3`
+#echo $strLen
+#essage=`expr substr "$1" 3 $strLen`
+#echo $message
+#hannelNum="WALTZ_`fw_printenv SN | cut -d '=' -f2`"
+contant="{ \"data\": {\"GPS\": \"$1\"}, \"to\" : \"/topics/ACCTON_POC\"}"
+#echo $contant > /tmp/notifyMessage
+
+curl -X POST \
+--cacert /etc/mtlapp/ca.crt \
+-H "Authorization: key=AIzaSyCzTxwAJRNQ67wFVUjtRgHm3UglpaU4eOQ" \
+-H "Content-Type: application/json" \
+-k -d "$contant" \
+https://gcm-http.googleapis.com/gcm/send

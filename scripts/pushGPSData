@@ -1,0 +1,16 @@
+#!/bin/sh
+
+sendData() {
+  while  read gpsdata; do
+    read rssi < /memtmp/lastRSSI
+    data=${gpsdata},,${rssi}
+    echo $data
+
+#    push data
+     ./Parse_Loger cc1310 $data > /dev/null 2>&1
+
+  done
+}
+
+nc -6ulk 7777 | sendData | ./post_gcm_process.py
+
